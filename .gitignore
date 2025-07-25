@@ -9,12 +9,9 @@ __pycache__/
 *.pyw
 
 output/
-clips/
 audio/
 
-!output/.gitkeep
-!output/videos/.gitkeep
-!clips/.gitkeep
-!clips/mining/.gitkeep
-!audio/.gitkeep
-!audio/lofi/.gitkeep
+clips/**/*.mp4
+clips/**/*.avi
+clips/**/*.mov
+clips/**/*.mkv
