@@ -8,8 +8,16 @@ __pycache__/
 *.pyz
 *.pyw
 
-output/
-audio/
+output/**/*.mp4
+output/**/*.avi
+output/**/*.mov
+output/**/*.mkv
+
+audio/**/*.mp3
+audio/**/*.wav
+audio/**/*.flac
+audio/**/*.aac
+audio/**/*.ogg
 
 clips/**/*.mp4
 clips/**/*.avi
