@@ -11,13 +11,17 @@ API_KEY = os.getenv("MUREKA_API_KEY")
 API_URL = "https://api.mureka.ai/v1/instrumental/generate"
 STATUS_URL = "https://api.mureka.ai/v1/instrumental/query"
 
-PROMPT = "jazzy lofi chillhop instrumental, mellow rhodes keys, soft vinyl crackle, smooth saxophone touches, chill drums, no vocals, perfect for studying"
+PROMPT = "Generate an instrumental at ~74 BPM with warm Rhodes-style chords (flat and ambient), deep sustained sub bass, light drums, NO melody, NO movement. Static, minimal, background-focused."
 MODEL = "auto"
+
+print("📂 Introduce el género para la carpeta (ej: lofi, jazz):")
+GENRE = input("> ").strip().lower()
 
 date_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 keywords = "_".join(re.findall(r'\w+', PROMPT.lower()))[:30]
 
-OUTPUT_DIR = os.path.join("audio", "generated")
+BASE_OUTPUT_DIR = os.path.join("audio", "generated")
+OUTPUT_DIR = os.path.join(BASE_OUTPUT_DIR, GENRE)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 payload = {
