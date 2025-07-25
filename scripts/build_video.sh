@@ -33,24 +33,19 @@ for i in "${!SHUFFLED_CLIPS[@]}"; do
   DUR=$(ffprobe -v error -select_streams v:0 -show_entries stream=duration \
         -of default=noprint_wrappers=1:nokey=1 "$CLIP")
   
-  NEW_TOTAL=$(awk "BEGIN {print $CURRENT_DURATION + $DUR}")
-  if [[ $(awk "BEGIN {print ($NEW_TOTAL > $MAX_DURATION)}") == 1 ]] && [[ $i -gt 0 ]]; then
-    if [[ $(awk "BEGIN {print ($CURRENT_DURATION < $MAX_DURATION * 0.8)}") == 1 ]]; then
-      echo "⚠️  Agregando clip que supera duración objetivo para alcanzar contenido mínimo"
-    else
-      echo "✋ Parando en clip $((i+1)) para no superar mucho la duración objetivo"
-      break
-    fi
-  fi
-  
   INPUTS+=( -i "$CLIP" )
   DURATIONS+=("$DUR")
-  CURRENT_DURATION=$NEW_TOTAL
+  CURRENT_DURATION=$(awk "BEGIN {print $CURRENT_DURATION + $DUR}")
   
   FILTERS+="[$i:v]format=yuv420p,setsar=1,settb=AVTB[v$i]; "
   FILTERS+="[$i:a]aformat=fltp:48000:stereo[a$i]; "
   
   echo "📹 Clip $((i+1)): $(basename "$CLIP") (${DUR}s) - Total: ${CURRENT_DURATION}s"
+  
+  if [[ $(awk "BEGIN {print ($CURRENT_DURATION >= $MAX_DURATION)}") == 1 ]]; then
+    echo "✅ Alcanzada duración objetivo con clip $((i+1)) - Total: ${CURRENT_DURATION}s"
+    break
+  fi
 done
 
 CLIP_COUNT=${#DURATIONS[@]}

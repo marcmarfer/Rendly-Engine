@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import requests
 import time
 import os
@@ -11,7 +13,7 @@ API_KEY = os.getenv("MUREKA_API_KEY")
 API_URL = "https://api.mureka.ai/v1/instrumental/generate"
 STATUS_URL = "https://api.mureka.ai/v1/instrumental/query"
 
-PROMPT = "Generate an instrumental at ~74 BPM with warm Rhodes-style chords (flat and ambient), deep sustained sub bass, light drums, NO melody, NO movement. Static, minimal, background-focused."
+PROMPT = "Generate an instrumental at ~74 BPM with warm Rhodes-style chords (flat and ambient), deep sustained sub bass, light drums, NO melody, NO movement. Static, minimal, background-focused. The song MUST NOT sound excited, it must be calm and relaxing."
 MODEL = "auto"
 
 print("📂 Introduce el género para la carpeta (ej: lofi, jazz):")
